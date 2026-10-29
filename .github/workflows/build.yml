@@ -16,6 +16,7 @@ jobs:
           mkdir site
           curl -fsSL https://ai-pose-gallery.pages.dev/ -o orig.html
           python3 localize.py orig.html site/index.html
+          cp llms.txt site/
           if [ -s missing.txt ]; then
             { echo '## 對照表沒有的日文字串（頁面上保持日文，補進 zh-tw.json）'; echo '```'; cat missing.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           fi

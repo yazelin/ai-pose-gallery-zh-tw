@@ -1,0 +1,9 @@
+# ai-pose-gallery 繁中版
+
+> AI 生圖用的人物姿勢參考圖：1,439 張無臉灰色人台線稿（3:4，900x1200 PNG），288 個姿勢 × 5 個角度，名稱為繁體中文。原站 https://ai-pose-gallery.pages.dev/（作者 ギア），圖片由原站提供。
+
+- [poses.json](https://yazelin.github.io/ai-pose-gallery-zh-tw/poses.json)：全部圖片的資料，欄位 id、series、pose_no、category、name、angle、thumb、image（原尺寸 PNG 網址）
+- [使用說明 SKILL.md](https://raw.githubusercontent.com/yazelin/ai-pose-gallery-zh-tw/main/skills/pose-reference/SKILL.md)：怎麼搜尋、下載、當參考圖，以及使用規範
+- [查詢腳本 pose.py](https://raw.githubusercontent.com/yazelin/ai-pose-gallery-zh-tw/main/skills/pose-reference/pose.py)：只用 Python 標準函式庫
+
+規範：圖片可免費用於自己的作品（含商用），禁止再散布圖片本身；不得用於真實人物、未成年人或違反公序良俗的用途。

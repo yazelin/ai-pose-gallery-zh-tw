@@ -1,6 +1,6 @@
 """把原站 index.html 翻成繁中：python3 localize.py 原檔 輸出檔
 對照表 zh-tw.json 沒有的日文字串保持原樣，列在 missing.txt。"""
-import json, re, sys
+import json, os, re, sys
 
 ORIGIN = 'https://ai-pose-gallery.pages.dev/'
 JA = re.compile(r'[぀-ヿ㐀-鿿＀-￯　-〿]+'
@@ -42,12 +42,17 @@ def localize(s, tr):
     out = out.replace("img-src 'self' data:", "img-src 'self' data: " + ORIGIN.rstrip('/'))
     out = re.sub(r"<script defer src='https://static\.cloudflareinsights\.com.*?</script>", '', out, flags=re.S)
     out = re.sub(r'(<body[^>]*>)', lambda m: m[1] + NOTE, out, count=1)
-    return out, missing
+    return out, missing, data
 
 
 if __name__ == '__main__':
     tr = json.load(open('zh-tw.json', encoding='utf-8'))
-    out, missing = localize(open(sys.argv[1], encoding='utf-8').read(), tr)
+    out, missing, data = localize(open(sys.argv[1], encoding='utf-8').read(), tr)
     open(sys.argv[2], 'w', encoding='utf-8').write(out)
+    # 給 AI 用的資料檔，放在輸出頁旁邊
+    keys = {'id': 'id', '系統': 'series', 'ポーズ番号': 'pose_no', '分類': 'category', 'ポーズ名': 'name',
+            'アングル': 'angle', 'サムネ': 'thumb', '原寸': 'image'}
+    json.dump([{keys[k]: v for k, v in d.items()} for d in data], open(os.path.join(os.path.dirname(sys.argv[2]), 'poses.json'), 'w', encoding='utf-8'),
+              ensure_ascii=False, indent=0)
     open('missing.txt', 'w', encoding='utf-8').write(''.join(m + '\n' for m in sorted(missing)))
     print(f'未翻 {len(missing)} 條')
