@@ -1,0 +1,6 @@
+# ai-pose-gallery 繁中版（已搬家）
+
+> 這個網站已併入 AI 繪圖參考圖庫繁中版，多了 depth 姿勢、服裝、臉部三個圖庫。請改讀 https://yazelin.github.io/ai-reference-gallery-zh-tw/llms.txt
+
+- [新版 llms.txt](https://yazelin.github.io/ai-reference-gallery-zh-tw/llms.txt)
+- [poses.json](https://yazelin.github.io/ai-pose-gallery-zh-tw/poses.json)：舊網址仍每日同步新版的姿勢資料，欄位不變

@@ -1,0 +1,23 @@
+name: build
+on:
+  schedule: [{cron: '07 20 * * *'}] # 每日台灣時間 04:07，新版 03:37 部署完之後
+  workflow_dispatch:
+  push: {branches: [main]}
+permissions: {contents: read, pages: write, id-token: write}
+concurrency: {group: pages, cancel-in-progress: true}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: {name: github-pages, url: '${{ steps.deploy.outputs.page_url }}'}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy poses.json from the new site
+        run: |
+          mkdir site
+          cp index.html llms.txt site/
+          curl -fsSL https://yazelin.github.io/ai-reference-gallery-zh-tw/pose/poses.json -o site/poses.json
+          python3 -c "import json; assert len(json.load(open('site/poses.json'))) > 1000"
+      - uses: actions/upload-pages-artifact@v3
+        with: {path: site}
+      - id: deploy
+        uses: actions/deploy-pages@v4
